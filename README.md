@@ -1,2 +1,5 @@
+Backend branch - backend
+Frontend branch - Frontend-main
+
 install dependencies first
-- npm install
+- npm install (in frontend)
