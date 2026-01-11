@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #1e2022;
+  /* Charcoal */
+  --primary: #377dff;
+  /* Equal Collective Blue */
+  --primary-light: #ebf2ff;
+  /* Very light blue for backgrounds */
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --input-bg: #f8f9fa;
+  --success: #00c9a7;
+  /* Complimentary clean green */
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-inter), sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar - Minimal */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Utilities */
+
+.panel-base {
+  background: #ffffff;
+  border-right: 1px solid var(--card-border);
+}
+
+.clean-card {
+  background: #ffffff;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+}
+
+.clean-input {
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  color: var(--foreground);
+  transition: all 0.2s ease;
+}
+
+.clean-input:focus {
+  background: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(55, 125, 255, 0.15);
+  outline: none;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #2b65d9;
+  /* Darker shade of brand blue */
+  box-shadow: 0 4px 12px rgba(55, 125, 255, 0.25);
+}
+
+/* JSON Styling */
+.json-key {
+  color: #1e2022;
+  font-weight: 500;
+}
+
+.json-string {
+  color: #008f5d;
+}
+
+/* Darker green */
+.json-number {
+  color: #d946ef;
+}
+
+.json-boolean {
+  color: #377dff;
+}
+
+.json-null {
+  color: #64748b;
+}
+
+/* Subtle Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
