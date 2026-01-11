@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ExplainX - Understand what your API actually does with AI-powered explanations">
+    <title>ExplainX | API Execution Explainer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">🧠</span>
+                    <span class="logo-text">ExplainX</span>
+                </div>
+                <span class="version-badge">v1.0</span>
+            </div>
+            
+            <nav class="api-nav">
+                <div class="nav-section">
+                    <h3 class="nav-section-title">
+                        <span class="section-icon">🛒</span>
+                        Checkout
+                    </h3>
+                    <ul class="api-list">
+                        <li class="api-item active" data-endpoint="simple">
+                            <span class="method-badge post">POST</span>
+                            <span class="endpoint-path">/checkout/simple</span>
+                        </li>
+                        <li class="api-item" data-endpoint="full">
+                            <span class="method-badge post">POST</span>
+                            <span class="endpoint-path">/checkout/full</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="nav-section">
+                    <h3 class="nav-section-title">
+                        <span class="section-icon">📦</span>
+                        Reference
+                    </h3>
+                    <ul class="api-list">
+                        <li class="api-item" data-endpoint="products">
+                            <span class="method-badge get">GET</span>
+                            <span class="endpoint-path">/products</span>
+                        </li>
+                        <li class="api-item" data-endpoint="promo-codes">
+                            <span class="method-badge get">GET</span>
+                            <span class="endpoint-path">/promo-codes</span>
+                        </li>
+                        <li class="api-item" data-endpoint="user-types">
+                            <span class="method-badge get">GET</span>
+                            <span class="endpoint-path">/user-types</span>
+                        </li>
+                        <li class="api-item" data-endpoint="states">
+                            <span class="method-badge get">GET</span>
+                            <span class="endpoint-path">/states</span>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="connection-status" id="connection-status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Connecting...</span>
+                </div>
+                <a href="http://localhost:8000/docs" target="_blank" rel="noopener" class="swagger-link">
+                    📄 Swagger Docs
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="content-header">
+                <div class="header-info">
+                    <h1 id="endpoint-title">Simple Checkout</h1>
+                    <p id="endpoint-description">Basic checkout flow with user validation, discounts, and tax calculation</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="clear-btn">
+                        <span class="btn-icon">🗑️</span>
+                        Clear
+                    </button>
+                </div>
+            </header>
+
+            <!-- Request Section -->
+            <section class="request-section">
+                <div class="section-header">
+                    <h2>
+                        <span class="section-icon">📝</span>
+                        Request
+                    </h2>
+                    <div class="endpoint-url" id="endpoint-url">
+                        <span class="method-badge post">POST</span>
+                        <code>http://localhost:8000/checkout/simple</code>
+                    </div>
+                </div>
+
+                <!-- Simple Checkout Form -->
+                <form id="simple-form" class="request-form active">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="simple-price">
+                                Price
+                                <span class="required">*</span>
+                            </label>
+                            <input type="number" id="simple-price" name="price" 
+                                   value="100" min="0" step="0.01" required>
+                            <span class="form-hint">Product price in USD</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="simple-user-type">
+                                User Type
+                                <span class="required">*</span>
+                            </label>
+                            <select id="simple-user-type" name="user_type" required>
+                                <option value="premium">Premium (20% off)</option>
+                                <option value="standard">Standard (10% off)</option>
+                                <option value="guest">Guest (0% off)</option>
+                            </select>
+                            <span class="form-hint">Customer tier for discounts</span>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Full Checkout Form -->
+                <form id="full-form" class="request-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="full-product">
+                                Product
+                                <span class="required">*</span>
+                            </label>
+                            <select id="full-product" name="product_id" required>
+                                <option value="LAPTOP-001">Pro Laptop 15" ($1,299.99)</option>
+                                <option value="PHONE-001">Smart Phone X ($899.99)</option>
+                                <option value="HEADPHONES-001">Wireless Headphones ($249.99)</option>
+                                <option value="TABLET-001">Pro Tablet 12" ($799.99)</option>
+                                <option value="WATCH-001">Smart Watch Pro ($399.99)</option>
+                            </select>
+                            <span class="form-hint">Select from inventory</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="full-quantity">
+                                Quantity
+                                <span class="required">*</span>
+                            </label>
+                            <input type="number" id="full-quantity" name="quantity" 
+                                   value="2" min="1" required>
+                            <span class="form-hint">Number of items</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="full-user-type">
+                                User Type
+                                <span class="required">*</span>
+                            </label>
+                            <select id="full-user-type" name="user_type" required>
+                                <option value="premium">Premium (20% off)</option>
+                                <option value="standard">Standard (10% off)</option>
+                                <option value="guest">Guest (0% off)</option>
+                            </select>
+                            <span class="form-hint">Customer tier</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="full-state">
+                                State
+                                <span class="required">*</span>
+                            </label>
+                            <select id="full-state" name="state" required>
+                                <option value="CA">California (7.25%)</option>
+                                <option value="NY">New York (8%)</option>
+                                <option value="TX">Texas (6.25%)</option>
+                                <option value="FL">Florida (6%)</option>
+                                <option value="WA">Washington (6.5%)</option>
+                                <option value="OR">Oregon (0%)</option>
+                            </select>
+                            <span class="form-hint">State for tax</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="full-promo">
+                                Promo Code
+                            </label>
+                            <input type="text" id="full-promo" name="promo_code" 
+                                   placeholder="e.g., SAVE10">
+                            <span class="form-hint">Optional discount code</span>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="full-express" name="express_shipping">
+                                <span class="checkbox-custom"></span>
+                                Express Shipping
+                            </label>
+                            <span class="form-hint">2-day delivery (2x shipping)</span>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- GET Endpoint Placeholder -->
+                <div id="get-placeholder" class="get-placeholder">
+                    <p>This is a GET endpoint. Click "Execute" to fetch data.</p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary" id="execute-btn">
+                        <span class="btn-icon">▶️</span>
+                        Execute
+                    </button>
+                </div>
+            </section>
+
+            <!-- Response Section -->
+            <section class="response-section">
+                <div class="section-header">
+                    <h2>
+                        <span class="section-icon">📤</span>
+                        Response
+                    </h2>
+                    <div class="response-meta" id="response-meta">
+                        <!-- Filled dynamically -->
+                    </div>
+                </div>
+
+                <div class="response-tabs">
+                    <button class="tab-btn active" data-tab="result">
+                        <span class="tab-icon">📊</span>
+                        Result
+                    </button>
+                    <button class="tab-btn" data-tab="traces">
+                        <span class="tab-icon">🔍</span>
+                        Traces
+                        <span class="trace-count" id="trace-count">0</span>
+                    </button>
+                    <button class="tab-btn" data-tab="explain">
+                        <span class="tab-icon">💡</span>
+                        ExplainX
+                    </button>
+                </div>
+
+                <div class="response-content">
+                    <div class="tab-content active" id="result-tab">
+                        <div class="empty-state" id="result-empty">
+                            <div class="empty-icon">📭</div>
+                            <p>Execute a request to see the response</p>
+                        </div>
+                        <pre class="code-block" id="result-json"><code></code></pre>
+                    </div>
+
+                    <div class="tab-content" id="traces-tab">
+                        <div class="empty-state" id="traces-empty">
+                            <div class="empty-icon">🔬</div>
+                            <p>Function traces will appear here</p>
+                        </div>
+                        <div class="traces-list" id="traces-list">
+                            <!-- Filled dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="explain-tab">
+                        <div class="empty-state" id="explain-empty">
+                            <div class="empty-icon">📝</div>
+                            <p>ExplainX report will appear here</p>
+                        </div>
+                        <div class="explain-content" id="explain-content">
+                            <div class="explain-header">
+                                <button class="btn btn-secondary" id="download-btn" disabled>
+                                    <span class="btn-icon">💾</span>
+                                    Download explainX.txt
+                                </button>
+                                <button class="btn btn-ghost" id="copy-btn" disabled>
+                                    <span class="btn-icon">📋</span>
+                                    Copy
+                                </button>
+                            </div>
+                            <pre class="explain-text" id="explain-text"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+            <span class="loading-text">Processing...</span>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
